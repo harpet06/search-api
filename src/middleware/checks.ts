@@ -6,8 +6,8 @@ export const checkSearchParams = (
   res: Response,
   next: NextFunction
 ) => {
-  if (!req.query.q) {
-    throw new HTTP400Error("Missing q parameter");
+  if ((!req.query.workoutDifficulty || !req.query.workoutType || !req.query.workoutNumber)) {
+    throw new HTTP400Error("Missing paramter, please supply a workout difficulty, type and number");
   } else {
     next();
   }

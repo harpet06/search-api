@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { getPlacesByName } from "./SearchController";
+import { getAllWorkouts, generateWorkout } from "./SearchController";
 import { checkSearchParams } from "../../middleware/checks";
 
 export default [
@@ -7,16 +7,28 @@ export default [
     path: "/",
     method: "get",
     handler: async (req: Request, res: Response) => {
-      res.send("Hello world!");
+      res.send("Two endpoints /workouts for all workouts and another one tbc");
     }
   },
   {
-    path: "/api/v1/search",
+    path: "/workouts",
+    method: "get",
+    handler: async (req: Request, res: Response) => {
+      const result = await getAllWorkouts();
+      res.status(200).send(result);
+    }
+  },
+  {
+    path: "/custom/workout",
     method: "get",
     handler: [
       checkSearchParams,
       async ({ query }: Request, res: Response) => {
-        const result = await getPlacesByName(query.q);
+        const result = await generateWorkout(
+          query.workoutDifficulty,
+          query.workoutType,
+          query.workoutNumber
+        );
         res.status(200).send(result);
       }
     ]

@@ -19,8 +19,8 @@ describe("routes", () => {
     applyMiddleware(errorHandlers, router);
   });
 
-  test("a valid string query", async () => {
-    const response = await request(router).get("/api/v1/search?q=Cham");
+  test("a valid string query, for generating a workout", async () => {
+    const response = await request(router).get("/custom/workout?workoutDifficulty=beginner&workoutType=both&workoutNumber=3");
     expect(response.status).toEqual(200);
   });
 
@@ -30,7 +30,7 @@ describe("routes", () => {
   });
 
   test("an empty string", async () => {
-    const response = await request(router).get("/api/v1/search?q=");
+    const response = await request(router).get("/custom/workout?");
     expect(response.status).toEqual(400);
   });
 });

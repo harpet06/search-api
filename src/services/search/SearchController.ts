@@ -1,12 +1,16 @@
-import { getPlaces } from "./providers/OpenCageDataProvider";
+import {
+  getWorkouts,
+  constructWorkouts
+} from "./providers/KettlebellCodersProvider";
 
-export const getPlacesByName = async (q: string) => {
-  if (q.length < 3) {
-    return {
-      type: "FeatureCollection",
-      features: []
-    };
-  }
+export const getAllWorkouts = async () => {
+  return await getWorkouts();
+};
 
-  return await getPlaces(q);
+export const generateWorkout = async (
+  workoutDifficulty: string,
+  workoutType: string,
+  workoutNumber: number
+) => {
+  return await constructWorkouts(workoutDifficulty, workoutType, workoutNumber);
 };
