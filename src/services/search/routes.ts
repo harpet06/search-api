@@ -7,7 +7,7 @@ export default [
     path: "/",
     method: "get",
     handler: async (req: Request, res: Response) => {
-      res.send("Two endpoints /workouts for all workouts and another one tbc");
+      res.send("An example of running express in a lambda. Hit dev/workouts or dev/custom/workout?workoutDifficulty=beginner&workoutType=both&workoutNumber=3 for more");
     }
   },
   {

@@ -1,5 +1,6 @@
 import http from "http";
 import express from "express";
+import serverless from "serverless-http";
 import { applyMiddleware, applyRoutes } from "./utils";
 import routes from "./services";
 import middleware from "./middleware";
@@ -15,14 +16,16 @@ process.on("unhandledRejection", e => {
   process.exit(1);
 });
 
-const router = express();
-applyMiddleware(middleware, router);
-applyRoutes(routes, router);
-applyMiddleware(errorHandlers, router);
+const app = express();
+applyMiddleware(middleware, app);
+applyRoutes(routes, app);
+applyMiddleware(errorHandlers, app);
 
 const { PORT = 3000 } = process.env;
-const server = http.createServer(router);
+const server = http.createServer(app)
 
-server.listen(PORT, () =>
-  console.log(`Server is running http://localhost:${PORT}`)
-);
+// server.listen(PORT, () =>
+//   console.log(`Server is running http://localhost:${PORT}`)
+// );
+
+module.exports.handler = serverless(app);
