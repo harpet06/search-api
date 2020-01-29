@@ -1,6 +1,4 @@
 service: serverless-express-api
-package:
-  excludeDevDependencies: false
 plugins:
   - serverless-offline
   - serverless-plugin-typescript
